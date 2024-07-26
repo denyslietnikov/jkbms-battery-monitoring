@@ -1,0 +1,5 @@
+requests
+httpx
+python-telegram-bot
+openai==0.28.0
+pytz

@@ -1,0 +1,4 @@
+mppsolar[ble]
+python-telegram-bot[job-queue]
+python-dotenv
+pytz

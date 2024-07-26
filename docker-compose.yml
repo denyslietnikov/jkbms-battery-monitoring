@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  battery-monitor:
+    image: dletnikov/battery-monitor:latest
+    build:
+      context: battery-monitor/
+    container_name: battery-monitor
+    privileged: true
+    network_mode: host
+    volumes:
+      - /run/dbus:/run/dbus
+      - /var/run/dbus:/var/run/dbus
+      - ./battery-monitor/logs/:/logs/
+      # - ./battery-monitor/monitor.py:/app/monitor.py
+    env_file:
+      - ./battery-monitor/.env
+    restart: unless-stopped
+
+  battery-statistics:
+    build:
+      context: battery-statistics/
+    container_name: battery-statistics
+    image: dletnikov/battery-statistics:latest
+    volumes:
+      - ./battery-monitor/logs/stat.log:/logs/stat.log
+      # - ./battery-statistics/stats_script.py:/app/stats_script.py
+    env_file:
+      - ./battery-statistics/.env
+    restart: unless-stopped
